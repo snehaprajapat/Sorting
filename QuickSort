@@ -1,0 +1,78 @@
+#include <iostream>
+using namespace std;
+
+void swap(int &a, int &b)
+{
+    int temp=a;
+    a=b;
+    b=temp;
+}
+
+int Partition(int arr[],int lb, int ub)
+{
+    int pivot=arr[lb];
+    int start=lb;
+    int End=ub;
+    while(start < End)
+    {
+        while(arr[start]<=pivot && start < ub)
+        {
+            start++;
+        }
+        while(arr[End]>pivot)
+        {
+            End--;
+        }
+        if (start < End)
+        {
+            swap(arr[start],arr[End]);
+        }
+    }
+    swap(arr[lb],arr[End]);
+    return End;
+
+}
+
+void QuickSort(int arr[],int lb,int ub)
+{
+    if (lb<ub)
+    {
+        int partitionIndex =Partition(arr,lb,ub);
+        QuickSort(arr,lb,partitionIndex-1);
+        QuickSort(arr,partitionIndex+1,ub);
+    }
+}
+
+int main()
+{
+     cout<<"Quick Sort..."<<endl<<endl;
+    int n;
+    cout<<"Enter size of array - ";
+    cin>>n;
+    int arr[n];
+
+     //Taking input in array
+    for (int i=0; i<n; i++)
+    {
+        cout<<"Enter element no."<<i+1<<" - ";
+        cin>>arr[i];
+    }
+
+    //Display array
+    cout<<endl<<"Elements of Unsorted Array -"<<endl;
+    for (int i=0; i<n; i++)
+    {
+        cout<<arr[i]<<" ";
+    }
+
+    QuickSort (arr,0,n-1);
+
+     //Display array
+    cout<<endl<<"Elements of an Array after sorting -"<<endl;
+    for (int i=0; i<n; i++)
+    {
+        cout<<arr[i]<<" ";
+    }
+
+    return 0;
+}
