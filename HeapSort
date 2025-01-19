@@ -1,0 +1,72 @@
+#include <iostream>
+using namespace std;
+
+void MaxHeapify (int arr[],int n, int i)
+{
+    int largest=i;
+    int leftChild=2*i;
+    int rightChild=2*i+1;
+
+    if (leftChild <= n && arr[leftChild]>arr[largest])
+        largest=leftChild;
+
+    if (rightChild <= n && arr[rightChild]>arr[largest])
+        largest=rightChild;
+
+    if (largest!=i)
+    {
+        swap(arr[largest],arr[i]);
+        MaxHeapify(arr,n,largest);
+    }
+}
+
+void HeapSort(int arr[],int n)
+{
+    //Make Max heap
+    for (int i=n/2; i>=1; i--)
+    {
+        MaxHeapify(arr,n,i);
+    }
+
+    //Delete elements one by one from heap
+    for (int i=n; i>1; i--)
+    {
+        swap(arr[1],arr[i]);
+        MaxHeapify(arr,i-1,1);
+    }
+}
+
+int main()
+{
+    cout<<"Heap Sort..."<<endl<<endl;
+    int n;
+    cout<<"Enter size of array - ";
+    cin>>n;
+    int arr[n+1];
+    arr[0]=0;
+
+     //Taking input in array
+    for (int i=1; i<=n; i++)
+    {
+        cout<<"Enter element no."<<i<<" - ";
+        cin>>arr[i];
+    }
+
+    //Display Unsorted array
+    cout<<endl<<"Elements of Unsorted Array -"<<endl;
+    for (int i=1; i<=n; i++)
+    {
+        cout<<arr[i]<<" ";
+    }
+
+
+    HeapSort(arr,n);
+    //Display sorted array
+    cout<<endl<<"Elements of sorted Array -"<<endl;
+    for (int i=1; i<=n; i++)
+    {
+        cout<<arr[i]<<" ";
+    }
+
+    return 0;
+}
